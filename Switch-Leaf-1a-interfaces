@@ -1,0 +1,60 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*.intf
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+
+auto swp1
+iface swp1
+
+auto swp49
+iface swp49
+    address 10.217.182.1/24
+
+auto swp50
+iface swp50
+    address 10.217.182.2/24
+
+auto peerlink
+iface peerlink
+    bond-slaves swp13 swp14
+
+auto peerlink.4094
+iface peerlink.4094
+    address 169.254.255.1
+    netmask 255.255.255.0
+    clagd-priority 4096
+    clagd-peer-ip 169.254.255.2
+    clagd-backup-ip 10.0.0.12
+    clagd-sys-mac 44:38:39:ff:00:01
+
+# bridge to hosts
+auto swp1
+iface swp1
+
+auto node1
+iface node1
+    bond-slaves swp1
+    clag-id 1
+
+auto swp2
+iface swp2
+
+auto node2
+iface node2
+    bond-slaves swp2
+    clag-id 2
+
+
+auto br0
+iface br0
+    bridge-ports node1 node2 peerlink
+    address 10.217.184.1/24
+    bridge-stp on
