@@ -11,6 +11,16 @@ iface lo inet loopback
 auto eth0
 iface eth0 inet dhcp
 
+auto swp17
+iface swp17
+    mtu 9216
+    bridge-access 10
+
+auto swp18
+iface swp18
+    mtu 9216
+    bridge-access 10
+
 auto swp49
 iface swp49
     mtu 9216
@@ -19,19 +29,19 @@ auto swp50
 iface swp50
     mtu 9216
 
-auto nas01
-iface nas01
-   bond-slaves swp17
-   bridge-access 10
-   clag-id 17 
-   mtu 9216
+#auto nas01
+#iface nas01
+#   bond-slaves swp17
+#   bridge-access 10
+#   clag-id 17 
+#   mtu 9216
 
-auto nas02
-iface nas02
-   bond-slaves swp18
-   bridge-access 10
-   clag-id 18
-   mtu 9216
+#auto nas02
+#iface nas02
+#   bond-slaves swp18
+#   bridge-access 10
+#   clag-id 18
+#   mtu 9216
 
 auto nas01-40
 iface nas01-40
@@ -187,18 +197,21 @@ iface node12
 auto bridge
 iface bridge
       bridge-vlan-aware yes
-      bridge-ports glob node1-12 nas01 nas02 nas01-40 nas02-40 peerlink
+      bridge-ports glob node1-12 glob swp17-18 nas01-40 nas02-40 peerlink
       bridge-stp on
       bridge-vids 10 12
       mtu 9216
 
 auto bridge.10
 iface bridge.10
-      address-virtual 10.9.10.1/24
+    address-virtual 10.9.10.1/24
+    mtu 9216
 
 auto bridge.12
 iface bridge.12
-      address-virtual 10.9.12.1/24
+    address-virtual 10.9.12.1/24
+    mtu 9216
 
 # auto bridge.176
 # iface bridge.176
+#    mtu 9216
