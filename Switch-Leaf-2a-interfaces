@@ -6,14 +6,14 @@ source /etc/network/interfaces.d/*.intf
 # The loopback network interface
 auto lo
   iface lo inet loopback 
-  address 10.0.0.3/32
+  address 10.0.0.2/32
 
 # The primary network interface
 auto eth0
 iface eth0 inet dhcp
 
-auto swp31
-iface swp31
+auto swp49
+iface swp49
 
-auto swp32
-iface swp32
+auto swp50
+iface swp50
